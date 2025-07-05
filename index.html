@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Filmaura</title>
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     :root {
       --bg: #f9f9f9;
@@ -11,196 +12,51 @@
       --card: #fff;
       --accent: #e50914;
     }
-
     [data-theme="dark"] {
       --bg: #121212;
       --text: #eee;
       --card: #1e1e1e;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding: 2rem;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      color: gray;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    input, select {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: var(--card);
-      color: var(--text);
-    }
-
-    .toggle-theme {
-      cursor: pointer;
-      border: none;
-      padding: 0.5rem 1rem;
-      background: var(--accent);
-      color: white;
-      border-radius: 8px;
-    }
-
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .tabs button {
-      padding: 0.5rem 1rem;
-      border: none;
-      background: var(--accent);
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .movies {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .movie {
-      background: var(--card);
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .movie:hover {
-      transform: scale(1.05);
-    }
-
-    .movie img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-
-    .movie h3 {
-      font-size: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .movie p {
-      font-size: 0.9rem;
-      color: gray;
-    }
-
-    .movie .vote {
-      color: #f39c12;
-      font-weight: bold;
-      margin-top: 0.2rem;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: gray;
-    }
-
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 600px;
-    }
-
-    .close-modal {
-      background: var(--accent);
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
-
-    .load-more-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 1rem;
-      border-radius: 8px;
-      margin-top: 2rem;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    #loading {
-      text-align: center;
-      color: gray;
-      margin: 1rem 0;
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      .controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);padding:2rem;}
+    header{text-align:center;margin-bottom:2rem;}
+    header h1{font-size:2.5rem;margin-bottom:0.5rem;}
+    header p{color:gray;}
+    .controls{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-bottom:1rem;}
+    input,select{padding:0.5rem;font-size:1rem;border:1px solid #ccc;border-radius:8px;background:var(--card);color:var(--text);}
+    .toggle-theme{cursor:pointer;border:none;padding:0.5rem 1rem;background:var(--accent);color:#fff;border-radius:8px;}
+    .tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem;}
+    .tabs button{padding:0.5rem 1rem;border:none;background:var(--accent);color:#fff;border-radius:8px;cursor:pointer;position:relative;}
+    .tabs button.active{background:#333;}
+    /* Tooltip */
+    button[data-tooltip]::after{content:attr(data-tooltip);position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:4px 8px;font-size:0.8rem;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .3s;white-space:nowrap;z-index:10;}
+    button[data-tooltip]:hover::after{opacity:1;}
+    .movies{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.5rem;}
+    .movie{background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 2px 5px rgba(0,0,0,.1);text-align:center;cursor:pointer;transition:transform .2s;}
+    .movie:hover{transform:scale(1.05);}
+    .movie img{width:100%;border-radius:8px;margin-bottom:.5rem;}
+    .movie h3{font-size:1rem;margin-top:.5rem;}
+    .movie p{font-size:.9rem;color:gray;}
+    .vote{color:#f39c12;font-weight:bold;margin-top:.2rem;}
+    footer{text-align:center;margin-top:3rem;font-size:.9rem;color:gray;}
+    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;}
+    .modal-content{background:var(--card);padding:2rem;border-radius:12px;width:90%;max-width:600px;background-size:cover;background-position:center;position:relative;}
+    .modal-content::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.6);border-radius:12px;}
+    .modal-content>*{position:relative;z-index:1;color:var(--text);}
+    .close-modal{background:var(--accent);color:#fff;padding:.5rem 1rem;border:none;border-radius:8px;cursor:pointer;margin-top:1rem;}
+    #loading{text-align:center;color:gray;margin:1rem 0;display:none;}
+    .spinner{border:4px solid #f3f3f3;border-top:4px solid var(--accent);border-radius:50%;width:24px;height:24px;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px;}
+    @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    .load-more-btn{display:none;}
+    @media(max-width:600px){.controls{flex-direction:column;align-items:stretch;}}
   </style>
 </head>
 <body>
   <header>
     <h1>Filmaura</h1>
     <p>Discover the best movies, personalized for you</p>
-  </header>
-
-  <div class="controls">
-    <input type="text" id="search" placeholder="Search for a movie...">
+  </header>  <div class="controls">
+    <input type="text" id="search" placeholder="Search for a movie..." />
     <select id="genre">
       <option value="">All Genres</option>
       <option value="28">Action</option>
@@ -222,92 +78,86 @@
       <option value="release_date.desc">Latest Releases</option>
     </select>
     <label>
-      <input type="checkbox" id="adult" />
-      Include Adult
+      <input type="checkbox" id="adult" /> Include Adult
     </label>
     <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
-  </div>
-
-  <div class="tabs">
-    <button onclick="loadMovies('trending')">Trending</button>
-    <button onclick="loadMovies('top_rated')">Top Rated</button>
-    <button onclick="loadMovies('upcoming')">Upcoming</button>
-  </div>
-
-  <div id="loading">Loading...</div>
-  <div class="movies" id="movies"></div>
-  <button class="load-more-btn" onclick="loadMoreMovies()">Load More</button>
-
-  <footer>
-    &copy; 2025 Filmaura. All rights reserved. <br />
+  </div>  <div class="tabs">
+    <button data-tooltip="Trending movies" class="active" onclick="loadMovies('trending', this)">Trending</button>
+    <button data-tooltip="Top rated movies" onclick="loadMovies('top_rated', this)">Top Rated</button>
+    <button data-tooltip="Upcoming movies" onclick="loadMovies('upcoming', this)">Upcoming</button>
+  </div>  <div id="loading"><span class="spinner"></span> Loading...</div>
+  <div id="movies" class="movies"></div>  <footer>
+    &copy; 2025 Filmaura. All rights reserved.<br />
     This product uses the TMDB API but is not endorsed or certified by TMDB.
-  </footer>
-
-  <div class="modal" id="movieModal">
-    <div class="modal-content">
+  </footer>  <div id="movieModal" class="modal" onclick="closeModal(event)">
+    <div id="modalContent" class="modal-content" onclick="event.stopPropagation()">
       <h2 id="movieTitle"></h2>
       <p id="movieOverview"></p>
       <p><strong>Release Date:</strong> <span id="movieReleaseDate"></span></p>
       <p><strong>Rating:</strong> <span id="movieRating"></span></p>
       <button class="close-modal" onclick="closeModal()">Close</button>
     </div>
-  </div>
-
-  <script>
+  </div>  <script>
     const API_KEY = '835e03c80c7146db1d12752b81a21852';
     const BASE_URL = 'https://api.themoviedb.org/3';
     let currentPage = 1;
     let currentCategory = 'trending';
+    let isFetching = false;
+
+    const $id = id => document.getElementById(id);
+    const getSearch = () => $id('search').value;
+    const getGenre = () => $id('genre').value;
 
     async function fetchMovies(category = 'trending', query = '', genre = '', append = false) {
-      document.getElementById('loading').style.display = 'block';
-      const lang = document.getElementById('language').value;
-      const sort = document.getElementById('sort').value;
-      const includeAdult = document.getElementById('adult').checked;
+      if (isFetching) return;
+      isFetching = true;
+      $id('loading').style.display = 'block';
 
-      let url = `${BASE_URL}/movie/${category}?api_key=${API_KEY}&page=${currentPage}&language=${lang}&sort_by=${sort}&include_adult=${includeAdult}`;
+      const lang = $id('language').value;
+      const origLang = lang.split('-')[0];
+      const sort = $id('sort').value;
+      const includeAdult = $id('adult').checked;
+      let url = '';
 
       if (query) {
-        url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&page=${currentPage}&language=${lang}&include_adult=${includeAdult}`;
-      }
-
-      if (genre && !query) {
-        url += `&with_genres=${genre}`;
+        // Search endpoint
+        url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${currentPage}&language=${lang}&include_adult=${includeAdult}`;
+        if (genre) url += `&with_genres=${genre}`;
+      } else if (category === 'trending') {
+        // Trending endpoint (doesn't accept with_genres)
+        url = `${BASE_URL}/trending/movie/day?api_key=${API_KEY}&page=${currentPage}&language=${lang}`;
+      } else {
+        // Discover endpoint supports filters
+        url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&page=${currentPage}&language=${lang}&sort_by=${sort}&include_adult=${includeAdult}&with_original_language=${origLang}`;
+        if (genre) url += `&with_genres=${genre}`;
       }
 
       try {
         const res = await fetch(url);
         const data = await res.json();
-        let results = data.results || [];
-
-        if (query && genre) {
-          results = results.filter(m => m.genre_ids.includes(parseInt(genre)));
-        }
-
-        displayMovies(results, append);
+        displayMovies(data.results || [], append);
       } catch (err) {
         console.error('Fetch error:', err);
       } finally {
-        document.getElementById('loading').style.display = 'none';
+        $id('loading').style.display = 'none';
+        isFetching = false;
       }
     }
 
     function displayMovies(movies, append = false) {
-      const container = document.getElementById('movies');
+      const container = $id('movies');
       if (!append) container.innerHTML = '';
-
-      if (!movies || movies.length === 0) {
-        container.innerHTML = '<p>No movies found.</p>';
+      if (!movies.length) {
+        if (!append) container.innerHTML = '<p>No movies found.</p>';
         return;
       }
-
       movies.forEach(movie => {
         const card = document.createElement('div');
-        card.classList.add('movie');
+        card.className = 'movie';
         card.onclick = () => showMovieDetails(movie);
-        const imgPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '';
+        const img = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '';
         card.innerHTML = `
-          <img src="${imgPath}" alt="${movie.title || 'Movie Poster'}" />
+          <img src="${img}" alt="${movie.title || 'Movie poster'}" />
           <h3>${movie.title}</h3>
           <p>${movie.release_date || 'Unknown'}</p>
           <div class="vote">⭐ ${movie.vote_average || 'N/A'}</div>
@@ -317,15 +167,18 @@
     }
 
     function showMovieDetails(movie) {
-      document.getElementById('movieTitle').innerText = movie.title;
-      document.getElementById('movieOverview').innerText = movie.overview || 'No overview available.';
-      document.getElementById('movieReleaseDate').innerText = movie.release_date || 'N/A';
-      document.getElementById('movieRating').innerText = movie.vote_average || 'N/A';
-      document.getElementById('movieModal').style.display = 'flex';
+      $id('movieTitle').innerText = movie.title;
+      $id('movieOverview').innerText = movie.overview || 'No overview available.';
+      $id('movieReleaseDate').innerText = movie.release_date || 'N/A';
+      $id('movieRating').innerText = movie.vote_average || 'N/A';
+      const backdrop = movie.backdrop_path ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : '';
+      $id('modalContent').style.backgroundImage = backdrop ? `url('${backdrop}')` : 'none';
+      $id('movieModal').style.display = 'flex';
     }
 
-    function closeModal() {
-      document.getElementById('movieModal').style.display = 'none';
+    function closeModal(e) {
+      if (e && e.target && e.target.id !== 'movieModal' && e.target.className !== 'close-modal') return;
+      $id('movieModal').style.display = 'none';
     }
 
     function toggleTheme() {
@@ -333,44 +186,34 @@
       document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
     }
 
-    function loadMovies(category) {
+    function loadMovies(category, btn) {
       currentCategory = category;
       currentPage = 1;
-      fetchMovies(category);
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      fetchMovies(category, getSearch(), getGenre());
     }
 
     function loadMoreMovies() {
       currentPage++;
-      fetchMovies(currentCategory, document.getElementById('search').value, document.getElementById('genre').value, true);
+      fetchMovies(currentCategory, getSearch(), getGenre(), true);
     }
 
-    document.getElementById('search').addEventListener('input', () => {
-      currentPage = 1;
-      fetchMovies(currentCategory, document.getElementById('search').value, document.getElementById('genre').value);
-    });
+    // Event listeners
+    $id('search').addEventListener('input', () => { currentPage = 1; fetchMovies(currentCategory, getSearch(), getGenre()); });
+    $id('genre').addEventListener('change', () => { currentPage = 1; fetchMovies(currentCategory, getSearch(), getGenre()); });
+    $id('language').addEventListener('change', () => { currentPage = 1; fetchMovies(currentCategory, getSearch(), getGenre()); });
+    $id('sort').addEventListener('change', () => { currentPage = 1; fetchMovies(currentCategory, getSearch(), getGenre()); });
+    $id('adult').addEventListener('change', () => { currentPage = 1; fetchMovies(currentCategory, getSearch(), getGenre()); });
 
-    document.getElementById('genre').addEventListener('change', () => {
-      currentPage = 1;
-      fetchMovies(currentCategory, document.getElementById('search').value, document.getElementById('genre').value);
-    });
-
-    document.getElementById('language').addEventListener('change', () => {
-      currentPage = 1;
-      fetchMovies(currentCategory);
-    });
-
-    document.getElementById('sort').addEventListener('change', () => {
-      currentPage = 1;
-      fetchMovies(currentCategory);
-    });
-
-    document.getElementById('adult').addEventListener('change', () => {
-      currentPage = 1;
-      fetchMovies(currentCategory);
+    // Infinite scroll
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+        loadMoreMovies();
+      }
     });
 
     // Initial load
-    loadMovies('trending');
-  </script>
-</body>
-</html>    
+    loadMovies('trending', document.querySelector('.tabs button.active'));
+  </script></body>
+</html>
